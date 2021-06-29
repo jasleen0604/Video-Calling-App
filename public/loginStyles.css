@@ -1,0 +1,44 @@
+body{
+    background-color: #f8f8f8;
+    margin: 0;
+}
+
+.main-div{
+display: flex;
+justify-content: space-evenly;
+flex-direction: row;
+padding: 50px;
+margin-top: 20px;
+margin-left: 100px;
+margin-right: 100px;
+}
+.left-div{
+    width: 50%;
+    margin-top: 80px;
+}
+.right-div{
+    width: 50%;
+}
+
+.work-from-home-image{
+    height: 400px;
+    width: 500px;
+    margin-bottom: 0;
+}
+.login-div h1{
+    color: #50b1ce;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.login-form{
+    margin-right: 40px;
+}
+.sign-in-button{
+    margin-top: 40px;
+    width: 100%;
+}
+.sign-in-button{
+    color: white;
+}

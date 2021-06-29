@@ -1,0 +1,73 @@
+body{
+    margin: 0;
+    background-color: #f8f8f8;
+}
+.sign-up-div{
+    text-align: center;
+}
+.sign-up-div h1{
+    color: #50b1ce;
+    font-weight: 600;
+}
+.sign-up-div p{
+    opacity: 0.8;
+}
+.main-div{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    padding: 50px;
+    padding-top: 70px;
+}
+.left-div{
+    width: 50%;
+    padding-left: 70px;
+  
+}
+.right-div{
+    width: 50%;
+    text-align: center;
+    margin-right: 40px;
+}
+.sign-up{
+    text-align: center;
+}
+.sign-up p{
+    font-size: small;
+}
+.sign-up-form{
+    /* margin-left: 30px;
+    margin-right: 20px; */
+}
+.login-option{
+    margin-top: 40px;
+}
+.login-option p{
+    margin-bottom: 5px;
+  
+}
+.join-meeting-option{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 50px;
+}
+.join-meeting-option div{
+    font-weight: 500;
+}
+.join-meeting-option button{
+margin-left: 20px;
+}
+.home-page-image{ 
+    margin-left: auto;
+}
+.video-call-image{
+    height: 400px;
+    width: 500px;
+    margin-bottom: 0;
+    margin-left: 90px;
+    margin-top: 50px;
+}
+.sign-up-button{
+    color: white;
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="registerStyles.css">
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+  <div class="main-div">
+
+    <div class="left-div">
+      <div class="sign-up-div">
+        <h1>Create Account</h1>
+        <p>Join us now</p>
+      </div>
+
+      <form class="sign-up-form" action="/register" method="post">
+        <small id="alert" style="color:red;"></small>
+        <div class="mb-3">
+          <label class="form-label">Full Name</label>
+          <input type="text" name="name" class="form-control">
+
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          <input type="text" name="username" class="form-control">
+
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input type="password" name="password" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-info sign-up-button">Sign Up</button>
+      </form>
+
+      <div class="login-option">
+        <p>Already registered?</p>
+        <a href="/login"><button class="btn btn-outline-info btn-sm">Login</button></a>
+      </div>
+
+    </div>
+
+    <div class="right-div">
+      <div class="join-meeting-option">
+        <div>Have a meeting link?</div>
+        <button class="btn btn-outline-info btn-sm">Join now</button>
+      </div>
+      <div class="home-page-image">
+        <img class="video-call-image" src="images/videoCall.svg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    var socket=io.connect("http://localhost:3000");
+
+    socket.on("message",(msg)=>{
+      document.getElementById("alert").innerText=msg;
+    });
+  </script>
+</body>
+
+</html>
