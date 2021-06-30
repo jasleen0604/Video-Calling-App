@@ -256,7 +256,7 @@ io.on('connection', socket => {
     });
 
     //code to massage in roomId
-    socket.on('message', (message, yourName) => {
+    socket.on('message', (message, username) => {
       io.to(roomId).emit('createMessage', message);
 
     })
