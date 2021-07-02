@@ -9,67 +9,68 @@ let userlist = [];
 let cUser;
 
 let YourName = prompt('Type Your Name');
-// let bar = confirm('Confirm or deny');
 console.log(YourName);
 
 var peer = new Peer();
 
 let myVideoStream;
-navigator.mediaDevices.getUserMedia({     //by using this we can access user device media(audio, video)
+navigator.mediaDevices.getUserMedia({     //access user device media(audio, video)
   video: true,
   audio: true
-}).then(stream => {                        //in this promice we sended media in stream
+}).then(stream => {                        //send our stream
   addVideoStream(myVideo, stream);
   myVideoStream = stream;
 
-  peer.on('call', call => {               //here user system answer call and send there video stream to us
+  peer.on('call', call => {               //receivers answer the call and send back their stream
     console.log("answered");
-    call.answer(stream);               //via this send video stream to caller
+    call.answer(stream);               //send video stream to caller
     const video = document.createElement('video');
 
-    //for normal calls
+    peers[call.peer] = call;   //storing the call info of the caller, call.peer gives the id of the peer who called
+
     call.on('stream', userVideoStream => {
       addVideoStream(video, userVideoStream);
     });
     //currentPeer = call.peerConnection;
     currentPeer.push(call.peerConnection);
-    // Handle when the call finishes
-    call.on('close', function () {
+  
+    call.on('close', function () {       //when the call is over
       video.remove();
-      alert("The videocall has finished");
     });
     // use call.close() to finish a call
   });
 
-  socket.on('user-connected', (userId) => {   //userconnected so we now ready to share
-    console.log('user ID fetch connection: ' + userId); //video stream
-    connectToNewUser(userId, stream);        //by this fuction which call user
+  socket.on('user-connected', (userId) => {   //new user connected so we are now ready to share
+    console.log('user ID fetch connection: ' + userId); //our video stream
+    connectToNewUser(userId, stream);        //by this function which calls the user
   })
 
 });
 
 
-//if someone try to join room
+//if someone tries to join room
 peer.on('open', async id => {
-  cUser = id;
+  cUser = id;                    //current user's peer id
   // console.log("Current user: "+id);
   await socket.emit('join-room', ROOM_ID, id, YourName);
 })
 
-socket.on('user-disconnected', userId => {   //userdisconnected so we now ready to stopshare
-  if (peers[userId]) peers[userId].close();
+socket.on('user-disconnected', userId => {   //user disconnected
+  
+  if (peers[userId])                  //close the call of the user disconnected
+  peers[userId].close();
+
   console.log('user ID fetch Disconnect: ' + userId);
-  //by this fuction which call user to stop share
 });
 
 
 const connectToNewUser = (userId, stream) => {
   console.log('User-connected :-' + userId);
-  let call = peer.call(userId, stream);       //we call new user and sended our video stream to him
+  let call = peer.call(userId, stream);       //call the new user and send our video stream
   //currentPeer = call.peerConnection;
   const video = document.createElement('video');
   call.on('stream', userVideoStream => {
-    addVideoStream(video, userVideoStream);  // Show stream in some video/canvas element.
+    addVideoStream(video, userVideoStream);  // Show stream in some video/canvas element
   })
   call.on('close', () => {
     video.remove()
@@ -81,7 +82,7 @@ const connectToNewUser = (userId, stream) => {
 }
 
 
-const addVideoStream = (video, stream) => {      //this help to show and append or add video to user side
+const addVideoStream = (video, stream) => {      //append or add video stream to our UI
   video.srcObject = stream;
   video.controls = true;
   video.addEventListener('loadedmetadata', () => {
